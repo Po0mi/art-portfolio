@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600&family=Poiret+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+        margin: 0;
+        font-family: 'Rajdhani', sans-serif;
+        background: linear-gradient(to bottom, #2b1b42, #0F1C2F);
+        color: white;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    body.loaded {
+        opacity: 1;
+    }
+
+    .container {
+        min-height: 100vh; /* Adjust for scrolling */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; /* Start from top */
+        text-align: center;
+        padding: 100px; /* Add padding for spacing */
+        gap: 10px; /* Space between sections */
+    }
+    .about-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s;
+    opacity: 0;
+    animation: popIn 1s forwards;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+        .avatar {
+            border-image-source: linear-gradient(to bottom, #a8a8ff, #ffffff);
+            border-image-slice: 1;
+            border-radius: 50%;
+            overflow: hidden;
+            width: 150px;
+            height: 150px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+            animation: popIn 1s forwards;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text {
+            max-width: 600px;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .header {
+            position: absolute;
+            top: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            font-size: 1rem;
+            animation: popIn 1s forwards;
+        }
+
+        .header a {
+            text-decoration: none;
+            color: white;
+            font-family: 'Poiret One', cursive;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .header a:hover {
+            color: #a8a8ff;
+            transform: scale(1.1);
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 1;
+            pointer-events: none;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        .art-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .art-container img {
+            max-width: 700px;
+            max-height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+            animation: popIn 0.5s forwards;
+        }
+
+        .art-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .arrow {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .arrow:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .arrow:disabled {
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+
+        .vertical-text {
+            position: absolute;
+            bottom: -14%;
+            left: -2.2%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-family: 'Poiret One', cursive;
+            font-size: 1rem;
+            color: #ffffff;
+            white-space: nowrap;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            animation: twinkle 2s infinite alternate;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .square {
+            position: absolute;
+            bottom: -60%;
+            right: 0%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-family: 'Poiret One', cursive;
+            font-size: 1rem;
+            color: #ffffff;
+            white-space: nowrap;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            animation: twinkle 2s infinite alternate;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+
+        .vertical-line {
+            position: absolute;
+            left: 28px;
+            bottom: 0%;
+            height: 80%;
+            width: 2px;
+            background-image: linear-gradient(#0F1C2F, #ffffff);
+        }
+        
+
+        .corner-image {
+            position: absolute;
+            top: 5%;
+            right: 22%;
+            width: 100px;
+            transform: rotate(45deg);
+            animation: popIn 1s forwards;
+            transform: scale(1.1);
+        }
+
+        .social-media {
+            display: flex;
+            gap: 15px;
+            margin-top: 0px;
+            animation: popIn 1s forwards;
+        }
+
+        .social-media a img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .social-media a img:hover {
+            transform: scale(1.2);
+            filter: brightness(1.5);
+        }
+
+        .art-description {
+    width: 300px;
+    text-align: center;
+    background: url('Omniscient_Reader_-_Episode_26-Photoroom-topaz-sharpen-upscale-3.8x-removebg-preview.png') center/cover no-repeat;
+    padding: 105px;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    color: white;
+    transition: transform 0.5s;
+    animation: popIn 1s forwards;
+    animation: popIn 0.5s forwards;
+}
+
+
+        .art-description:hover {
+            transform: translateY(-5px);
+        }
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+.figure {
+            position: absolute;
+            bottom: 10%;
+            right: -3%;
+            width: 20%;
+            height: 90%;
+            overflow: hidden;
+        }
+
+        .figure img {
+            width: 100%;
+            height: 90%;
+            object-fit: contain;
+            opacity: 1;
+            animation: twinkle 2s infinite alternate;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        @media (max-width: 1024px) {
+        .header {
+            font-size: 16px;
+            gap: 20px; /* Reduce gap for smaller screens */
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            padding: 15px; /* Reduce padding */
+        }
+
+        .art-container img {
+            max-width: 90%;
+            max-height: 70%; /* Ensure scaling */
+        }
+
+        .art-description {
+            width: 80%; /* Adjust description width */
+        }
+
+        .social-media a img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .corner-image {
+            width: 70px; /* Scale down the corner image */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            flex-wrap: wrap; /* Stack links if necessary */
+            gap: 10px;
+        }
+
+        .about-text {
+            font-size: 13px;
+        }
+
+        .vertical-text {
+            font-size: 16px;
+        }
+
+        .figure img {
+            opacity: 0.3; /* Adjust visibility for smaller screens */
+        }
+
+        .art-container {
+            flex-direction: column; /* Stack content vertically */
+            gap: 15px; /* Adjust spacing */
+        }
+
+        .art-description {
+            width: 90%; /* Ensure it scales with the container */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .header {
+            font-size: 14px;
+        }
+
+        .about-text {
+            font-size: 12px; /* Further reduce font size */
+        }
+
+        .social-media a img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .corner-image {
+            width: 50px;
+        }
+
+        .art-container img {
+            max-width: 100%;
+            max-height: 50%;
+        }
+
+        .figure img {
+            width: 70%; /* Resize for smaller viewports */
+        }
+        @keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+    }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <img class="corner-image" src="dfa2105cd38ee7a93d6ee107f326ecb9-removebg-preview.png" alt="Decorative Image">
+    <div class="container">
+        <div class="header">
+            <a href="index.html">Home</a>
+            <a href="aboutme.html">About Me</a>
+            <a href="skills.html">Skills</a>
+        </div>
+        <div class="about-section">
+            <h1 style="margin-top: 0%; font-family: 'Poiret One', cursive; color: #ffffff;">About me</h1>
+           
+            <div class="avatar">
+                <img src="920900352470e39dfd96fb6eb05f20bd.jpg" alt="Avatar">
+            </div> 
+            <div class="social-media">
+                <a href="#" target="_blank"><img src="art-illustration_929495-41-removebg-preview.png" alt="Facebook"></a>
+                <a href="#" target="_blank"><img src="ig.png" alt="Instagram"></a>
+                <a href="#" target="_blank"><img src="download__1_-removebg-preview.png" alt="Twitter"></a>
+            </div>
+            <div class="about-text">
+                I am a passionate artist who thrives on exploring creativity through various mediums such as painting, digital illustration, and sculpture. Inspired by nature, human emotions, and abstract concepts, my work aims to evoke emotion and tell compelling stories. With a focus on vibrant color palettes and intricate details, I strive to create pieces that resonate and inspire.
+            </div>
+        </div>
+        <h2 style="margin-top: 20px; font-family: 'Poiret One', cursive; color: #a8a8ff;">Featured Artwork</h2>
+        <p style="margin-top: -5px; font-family: 'Poiret One', cursive; color: #ffffff;">Discover my collection</p>
+        <div class="art-container">
+            <button class="arrow" id="prevBtn">&#8592;</button>
+            <img id="artImage" src="art1.jpg" alt="Art Style">
+            <button class="arrow" id="nextBtn">&#8594;</button>
+            <div class="art-description" id="artDescription">
+                <!-- Initial description for the first artwork -->
+                A vibrant and detailed representation of human emotion, blending colors to convey a journey of self-discovery.
+            </div>
+        </div>
+        <div class="vertical-text">전지적 독자 시점</div>
+        <div class="vertical-line"></div>
+        <div class="figure">
+        <img src="e6c4dafc6fa53a9fcf9ee50a8d991de2-removebg-preview.png" alt="Figure">
+        </div>
+        <div class="square">■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■</div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add('loaded');
+        });
+
+        document.querySelectorAll('.header a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const destination = e.target.href;
+
+                document.body.classList.remove('loaded');
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, 1000);
+            });
+        });
+
+        const images = ["21e28e9d95fa6c0014f7859482a748e2.jpg", "4f8df3028b37f908353592391880a40c.jpg", "99d7eff68fe3618a30a51e8443f6be70.jpg", "ac43edd0c63cbdb4be6b5b333df29db9.jpg"];
+        const descriptions = [
+            "A vibrant and detailed representation of human emotion, blending colors to convey a journey of self-discovery.",
+            "A serene depiction of nature's beauty, capturing the delicate interplay between light and shadow.",
+            "An abstract exploration of geometric shapes and bold colors, symbolizing the complexity of modern life.",
+            "A nostalgic piece inspired by childhood memories, rendered with soft hues and playful patterns."
+        ];
+
+        let currentIndex = 0;
+
+        const artImage = document.getElementById("artImage");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const artDescription = document.getElementById("artDescription");
+
+        function updateContent() {
+    // Remove the animation class to reset it
+    artImage.classList.remove('popIn');
+    artDescription.classList.remove('popIn');
+
+    // Force a reflow to ensure the animation restarts correctly
+    void artImage.offsetWidth;
+    void artDescription.offsetWidth;
+
+    // Apply the animation again after a brief delay
+    setTimeout(() => {
+        artImage.classList.add('popIn');
+        artDescription.classList.add('popIn');
+    }, 50); // Small delay to trigger the animation again
+
+    // Update the image and description
+    artImage.src = images[currentIndex];
+    artDescription.textContent = descriptions[currentIndex];
+
+    // Disable buttons based on the current index
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+}
+
+
+
+        prevBtn.addEventListener("click", () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateContent();
+            }
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                updateContent();
+            }
+        });
+
+        updateContent();
+    </script>
+</body>
+</html>

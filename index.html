@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600&family=Poiret+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(to bottom, #2b1b42, #0F1C2F);
+            color: white;
+            overflow: hidden;
+            opacity: 0; /* Initial state for fade-in */
+            transition: opacity 1s ease-in-out; /* Transition for fade-in effect */
+        }
+
+        body.loaded {
+            opacity: 1; /* Final state after the page has loaded */
+        }
+
+        .container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            position: absolute;
+            top: 25px;
+            width: 120%;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            font-size: 1rem;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            animation: popIn 1s forwards;
+        }
+        @keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+        
+
+        .header a {
+            text-decoration: none;
+            color: white;
+            font-family: 'Poiret One', cursive;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .header a:hover {
+            color: #a8a8ff;
+            transform: scale(1.1);
+        }
+
+        @keyframes typewriter {
+        0% {
+            width: 0;
+        }
+        100% {
+            width: 100%;
+        }
+    }
+
+    /* Fade out the cursor */
+    @keyframes cursorFadeOut {
+        0% {
+            border-right-color: white;
+        }
+        100% {
+            border-right-color: transparent;
+        }
+    }
+
+    .title {
+        font-size: clamp(2rem, 5vw, 5rem); /* Responsive font size */
+        margin-bottom: 10px;
+        font-family: 'Rajdhani', sans-serif;
+        overflow: hidden; /* Hide the text overflow during animation */
+        white-space: nowrap;
+        border-right: 4px solid white; /* Cursor effect */
+        animation: typewriter 3s steps(40) 1s forwards, cursorFadeOut 0.5s 3s forwards;
+    }
+
+    /* Optional fade-in effect for the title */
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+        .subtitle {
+            font-size: clamp(1rem);
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap; /* Allows wrapping */
+            font-family: 'Poiret One', cursive;
+            
+        }
+
+        .extra {
+            font-size: 0.875rem;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Poiret One', cursive;
+            animation: twinkle 2s infinite alternate;
+            opacity: 0.5;
+            pointer-events: none;
+            animation: popIn 1s forwards;
+        }
+
+        .vertical-text {
+            position: absolute;
+            left: 10px;
+            top: 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            font-family: 'Rajdhani', sans-serif;
+            animation: twinkle 2s infinite alternate;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .vertical-text span {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .vertical-text::before {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 500px;
+            background-color: white;
+            margin-bottom: 10px;
+            background-image: linear-gradient(#0F1C2F, rgb(255, 255, 255));
+        }
+
+        .korean-text {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 1.2rem;
+            gap: 5px;
+            font-family: 'Rajdhani', sans-serif;
+            animation: twinkle 2s infinite alternate;
+            opacity: 0.5;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .korean-text small {
+            font-size: 0.75rem;
+            color: #ffffff;
+            font-family: 'Poiret One', cursive;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 1;
+            pointer-events: none;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        .figure {
+            position: fixed;
+            top: 0;
+            bottom: 10px;
+            right: 0;
+            width: 30%; /* Adjusted for responsiveness */
+            max-width: 300px;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: twinkle 2s infinite alternate;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .header {
+                font-size: 0.9rem;
+                gap: 10px;
+            }
+
+            .vertical-text {
+                display: none; /* Hide on smaller screens */
+            }
+
+            .figure {
+                width: 40%; /* Reduce figure size */
+            }
+
+            .korean-text {
+                font-size: 1rem;
+                bottom: 10px;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+                gap: 5px;
+            }
+
+            .korean-text {
+                font-size: 0.9rem;
+            }
+
+            .figure {
+                width: 50%; /* Smaller on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <div class="header">
+            <a href="index.html">Home</a>
+            <a href="aboutme.html">About Me</a>
+            <a href="skills.html">Skills</a>
+        </div>
+        <div class="extra">I will search the Universe</div>
+        <div class="title">Welcome to My Art Portfolio</div>
+        <div class="subtitle">
+            <span>Illustrator</span>
+            <span>|</span>
+            <span>Graphic Designer</span>
+            <span>|</span>
+            <span>Digital Artist</span>
+        </div>
+        <div class="vertical-text">
+            <span>READER</span>
+        </div>
+        <div class="korean-text">
+            <div>전지적</div>
+            <span>|</span>
+            <div>독자시점</div>
+        </div>
+        <div class="figure">
+            <img src="654435c91d39412098c93a51e26b34f7-removebg-preview.png" alt="Figure">
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add('loaded');
+        });
+
+        document.querySelectorAll('.header a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const destination = e.target.href;
+
+                // Trigger the fade-out transition
+                document.body.classList.remove('loaded');
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, 1000); // Delay navigation to allow fade-out
+            });
+        });
+    </script>
+</body>
+</html>
